@@ -1,49 +1,55 @@
 import React from "react";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  useHistory 
+} from "react-router-dom";
+import { v4 as uuidv4 } from 'uuid';
+
 import EditList from "./EditList";
+import ViewList from "./ViewList";
 import "./App.css";
 
 const App = () => {
-  const [toggle, setToggle] = React.useState(false);
   const [notes, setNotes] = React.useState([]);
-
-  const toggleEditList = () => {
-    setToggle(!toggle);
-  };
+  const history = useHistory()
  
   const addNote = (title, text) => {
     const note = {
+      id: uuidv4(),
       title: title,
       text: text,
     }
     setNotes([...notes, note]);
-    setToggle(!toggle);
+    history.goBack()
   }
 
-  const deleteNote = (note) => {
-    const newArray = notes.filter((element) => element !== note);
+  const deleteNote = (id) => {
+    const newArray = notes.filter((note) => note.id !== id);
     setNotes(newArray);
+  }
+
+  const editNote = (note) => {
+    const newArray = notes.map((element) => element.id === note.id ? note : element);
+    setNotes(newArray);
+    history.goBack()
   }
 
   return (
     <div className="App">
-      {toggle ? (
-        <EditList addNote={addNote} toggleEditList={toggleEditList} />
-      ) : (
-        <div>
-          <p>Notes list</p>
-          <button onClick={toggleEditList}>Add note</button>
-          <ul>
-            {notes.map((note, index) => (
-              <div key={index}>
-                <ul>{note.title}</ul>
-                <button>edit</button>
-                <button onClick={() => deleteNote(note)}>delete</button>
-              </div>
-            ))}
-          </ul>
-          
-        </div>
-      )}
+      <Switch>
+        <Route exact path="/">
+          <ViewList
+            deleteNote={deleteNote}
+            notes={notes}
+            navigateToEditPage={(note) => history.push("/edit", { note })}
+          />
+          </Route>
+        <Route path="/new"><EditList addNote={addNote} /></Route>
+        <Route path="/edit"><EditList addNote={addNote} editNote={editNote} /></Route>
+      </Switch>
     </div>
   );
 };
