@@ -1,3 +1,35 @@
 .App {
   text-align: center;
 }
+ul{
+  padding: 0;
+}
+.input-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+.text, .title{
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 0;
+}
+.btn{
+  border-radius: 4px;
+  background-color: rgb(64, 3, 161);
+  border-color: rgb(64, 3, 161);
+  color: white;
+  padding: 5px 10px;
+  margin: 5px;
+}
+.list-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+.buttons-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

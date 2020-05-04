@@ -8,10 +8,12 @@ const ViewList = ({notes, deleteNote, navigateToEditPage}) => {
           <Link to="/new">Add note</Link>
           <ul>
             {notes.map((note) => (
-              <div key={note.id}>
+              <div className="list-container"key={note.id}>
                 <p>{note.title}</p>
-                <button onClick={() => navigateToEditPage(note)}>edit</button>
-                <button onClick={() => deleteNote(note.id)}>delete</button>
+                <div className="buttons-container">
+                  <button className="btn" onClick={() => navigateToEditPage(note)}>edit</button>
+                  <button className="btn" onClick={() => deleteNote(note.id)}>delete</button>
+                </div>
               </div>
             ))}
           </ul>

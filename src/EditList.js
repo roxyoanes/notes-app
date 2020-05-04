@@ -25,9 +25,12 @@ const EditList = ({ addNote, editNote }) => {
   return (
     <div>
       <p>Edit List</p>
-      <input type="text" onChange={handleTitle} value={title} />
-      <textarea type="text" onChange={handleDescription} value={description} />
-      <button onClick={handleClick}>save</button>
+      <div className="input-container">
+        <input className="title" type="text" onChange={handleTitle} value={title} />
+        <textarea className="text" type="text" onChange={handleDescription} value={description} />
+      </div>
+      
+      <button className="btn" onClick={handleClick}>save</button>
     </div>
   );
 };
